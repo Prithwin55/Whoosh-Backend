@@ -1,5 +1,6 @@
 package com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop;
 
+import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderBasicDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
 import com.whoosh_backend.Whoosh_Backend.data.entity.user.User;

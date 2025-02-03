@@ -20,7 +20,7 @@ import java.util.List;
 public class OrderDto {
     private Long id;
     private UserDto customer;
-    private LaundryShopDto shop;
+    private long shopId;
     private UserDto deliveryPerson;
     private OrderStatus status;
     private Double totalPrice;

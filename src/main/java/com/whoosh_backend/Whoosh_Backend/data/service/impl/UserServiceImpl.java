@@ -4,6 +4,7 @@ import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
 import com.whoosh_backend.Whoosh_Backend.api.mapper.UserMapper;
 import com.whoosh_backend.Whoosh_Backend.data.entity.user.User;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceAlreadyExistException;
+import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.repository.UserRepository;
 import com.whoosh_backend.Whoosh_Backend.data.service.UserService;
 import lombok.AllArgsConstructor;
@@ -40,10 +41,10 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public UserDto getUserById(int id) {
+    public UserDto getUserById(int id) throws ResourceNotFoundException {
         return userRepository.findById(id)
                 .map(UserMapper.INSTANCE::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
@@ -54,18 +55,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(int id, UserDto user) {
-        if (userRepository.existsById(id)) {
-            user.setId(id);
-            user.setPassword(encoder.encode(user.getPassword()));
-            User updatedUser = userRepository.save(UserMapper.INSTANCE.toEntity(user));
-            return UserMapper.INSTANCE.toDto(updatedUser);
-        }
-        return null;
-    }
+            public UserDto updateUser(int id, UserDto user) throws ResourceNotFoundException {
+                return userRepository.findById(id).map(existingUser -> {
+                    if (user.getUsername() != null) {
+                        existingUser.setUsername(user.getUsername());
+                    }
+                    if (user.getEmail() != null) {
+                        existingUser.setEmail(user.getEmail());
+                    }
+                    if (user.getPassword() != null) {
+                        existingUser.setPassword(encoder.encode(user.getPassword()));
+                    }
+                    if(user.getAddress() != null) {
+                        existingUser.setAddress(user.getAddress());
+                    }
+                    User updatedUser = userRepository.save(existingUser);
+                    return UserMapper.INSTANCE.toDto(updatedUser);
+                }).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            }
 
     @Override
-    public void deleteUser(int id) {
+    public String deleteUser(int id) throws ResourceNotFoundException {
+        //check if user exists
+        if(!userRepository.existsById(id)){
+            throw new ResourceNotFoundException("User not found");
+        }
         userRepository.deleteById(id);
+        return "User deleted";
     }
 }

@@ -2,8 +2,10 @@ package com.whoosh_backend.Whoosh_Backend.api.controller.user;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
 import com.whoosh_backend.Whoosh_Backend.data.entity.user.User;
+import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,22 +18,22 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable int id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable int id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable int id, @RequestBody UserDto user) {
-        return userService.updateUser(id, user);
+    public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody UserDto user) throws ResourceNotFoundException {
+        return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
+    public ResponseEntity<String> deleteUser(@PathVariable int id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(userService.deleteUser(id));
     }
 }
