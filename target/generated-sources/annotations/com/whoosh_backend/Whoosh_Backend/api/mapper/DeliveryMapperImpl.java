@@ -15,8 +15,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-01T22:58:20+0530",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
+    date = "2025-02-04T12:14:08+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class DeliveryMapperImpl implements DeliveryMapper {
 
@@ -54,6 +54,36 @@ public class DeliveryMapperImpl implements DeliveryMapper {
         delivery.setStatus( deliveryDto.getStatus() );
 
         return delivery;
+    }
+
+    @Override
+    public void updateEntityFromDto(DeliveryDto deliveryDto, Delivery delivery) {
+        if ( deliveryDto == null ) {
+            return;
+        }
+
+        delivery.setId( deliveryDto.getId() );
+        if ( deliveryDto.getOrder() != null ) {
+            if ( delivery.getOrder() == null ) {
+                delivery.setOrder( new Order() );
+            }
+            orderDtoToOrder1( deliveryDto.getOrder(), delivery.getOrder() );
+        }
+        else {
+            delivery.setOrder( null );
+        }
+        if ( deliveryDto.getDeliveryPerson() != null ) {
+            if ( delivery.getDeliveryPerson() == null ) {
+                delivery.setDeliveryPerson( new User() );
+            }
+            userDtoToUser1( deliveryDto.getDeliveryPerson(), delivery.getDeliveryPerson() );
+        }
+        else {
+            delivery.setDeliveryPerson( null );
+        }
+        delivery.setPickupTime( deliveryDto.getPickupTime() );
+        delivery.setDropTime( deliveryDto.getDropTime() );
+        delivery.setStatus( deliveryDto.getStatus() );
     }
 
     protected UserDto userToUserDto(User user) {
@@ -188,5 +218,69 @@ public class DeliveryMapperImpl implements DeliveryMapper {
         order.setOrderItems( orderItemDtoListToOrderItemList( orderDto.getOrderItems() ) );
 
         return order;
+    }
+
+    protected void userDtoToUser1(UserDto userDto, User mappingTarget) {
+        if ( userDto == null ) {
+            return;
+        }
+
+        mappingTarget.setId( userDto.getId() );
+        mappingTarget.setUsername( userDto.getUsername() );
+        mappingTarget.setPassword( userDto.getPassword() );
+        mappingTarget.setEmail( userDto.getEmail() );
+        mappingTarget.setPhoneNumber( userDto.getPhoneNumber() );
+        if ( userDto.getRole() != null ) {
+            mappingTarget.setRole( Enum.valueOf( Role.class, userDto.getRole() ) );
+        }
+        else {
+            mappingTarget.setRole( null );
+        }
+        mappingTarget.setAddress( userDto.getAddress() );
+    }
+
+    protected void orderDtoToOrder1(OrderDto orderDto, Order mappingTarget) {
+        if ( orderDto == null ) {
+            return;
+        }
+
+        mappingTarget.setId( orderDto.getId() );
+        if ( orderDto.getCustomer() != null ) {
+            if ( mappingTarget.getCustomer() == null ) {
+                mappingTarget.setCustomer( new User() );
+            }
+            userDtoToUser1( orderDto.getCustomer(), mappingTarget.getCustomer() );
+        }
+        else {
+            mappingTarget.setCustomer( null );
+        }
+        if ( orderDto.getDeliveryPerson() != null ) {
+            if ( mappingTarget.getDeliveryPerson() == null ) {
+                mappingTarget.setDeliveryPerson( new User() );
+            }
+            userDtoToUser1( orderDto.getDeliveryPerson(), mappingTarget.getDeliveryPerson() );
+        }
+        else {
+            mappingTarget.setDeliveryPerson( null );
+        }
+        mappingTarget.setStatus( orderDto.getStatus() );
+        mappingTarget.setTotalPrice( orderDto.getTotalPrice() );
+        mappingTarget.setPaymentStatus( orderDto.getPaymentStatus() );
+        if ( mappingTarget.getOrderItems() != null ) {
+            List<OrderItem> list = orderItemDtoListToOrderItemList( orderDto.getOrderItems() );
+            if ( list != null ) {
+                mappingTarget.getOrderItems().clear();
+                mappingTarget.getOrderItems().addAll( list );
+            }
+            else {
+                mappingTarget.setOrderItems( null );
+            }
+        }
+        else {
+            List<OrderItem> list = orderItemDtoListToOrderItemList( orderDto.getOrderItems() );
+            if ( list != null ) {
+                mappingTarget.setOrderItems( list );
+            }
+        }
     }
 }

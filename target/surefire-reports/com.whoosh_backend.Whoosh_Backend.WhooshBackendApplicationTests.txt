@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.whoosh_backend.Whoosh_Backend.WhooshBackendApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.86 s -- in com.whoosh_backend.Whoosh_Backend.WhooshBackendApplicationTests

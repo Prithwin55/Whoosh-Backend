@@ -15,8 +15,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-01T22:58:20+0530",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
+    date = "2025-02-04T12:14:08+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class OrderMapperImpl implements OrderMapper {
 
@@ -83,12 +83,65 @@ public class OrderMapperImpl implements OrderMapper {
         return orderBasicDto;
     }
 
+    @Override
+    public void updateEntityFromDto(OrderDto orderDto, Order order) {
+        if ( orderDto == null ) {
+            return;
+        }
+
+        order.setId( orderDto.getId() );
+        if ( orderDto.getCustomer() != null ) {
+            if ( order.getCustomer() == null ) {
+                order.setCustomer( new User() );
+            }
+            userDtoToUser1( orderDto.getCustomer(), order.getCustomer() );
+        }
+        else {
+            order.setCustomer( null );
+        }
+        if ( orderDto.getDeliveryPerson() != null ) {
+            if ( order.getDeliveryPerson() == null ) {
+                order.setDeliveryPerson( new User() );
+            }
+            userDtoToUser1( orderDto.getDeliveryPerson(), order.getDeliveryPerson() );
+        }
+        else {
+            order.setDeliveryPerson( null );
+        }
+        order.setStatus( orderDto.getStatus() );
+        order.setTotalPrice( orderDto.getTotalPrice() );
+        order.setPaymentStatus( orderDto.getPaymentStatus() );
+        if ( order.getOrderItems() != null ) {
+            List<OrderItem> list = orderItemDtoListToOrderItemList( orderDto.getOrderItems() );
+            if ( list != null ) {
+                order.getOrderItems().clear();
+                order.getOrderItems().addAll( list );
+            }
+            else {
+                order.setOrderItems( null );
+            }
+        }
+        else {
+            List<OrderItem> list = orderItemDtoListToOrderItemList( orderDto.getOrderItems() );
+            if ( list != null ) {
+                order.setOrderItems( list );
+            }
+        }
+    }
+
     private Long orderShopId(Order order) {
+        if ( order == null ) {
+            return null;
+        }
         LaundryShop shop = order.getShop();
         if ( shop == null ) {
             return null;
         }
-        return shop.getId();
+        Long id = shop.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 
     protected UserDto userToUserDto(User user) {
@@ -202,10 +255,36 @@ public class OrderMapperImpl implements OrderMapper {
     }
 
     private String orderShopShopName(Order order) {
+        if ( order == null ) {
+            return null;
+        }
         LaundryShop shop = order.getShop();
         if ( shop == null ) {
             return null;
         }
-        return shop.getShopName();
+        String shopName = shop.getShopName();
+        if ( shopName == null ) {
+            return null;
+        }
+        return shopName;
+    }
+
+    protected void userDtoToUser1(UserDto userDto, User mappingTarget) {
+        if ( userDto == null ) {
+            return;
+        }
+
+        mappingTarget.setId( userDto.getId() );
+        mappingTarget.setUsername( userDto.getUsername() );
+        mappingTarget.setPassword( userDto.getPassword() );
+        mappingTarget.setEmail( userDto.getEmail() );
+        mappingTarget.setPhoneNumber( userDto.getPhoneNumber() );
+        if ( userDto.getRole() != null ) {
+            mappingTarget.setRole( Enum.valueOf( Role.class, userDto.getRole() ) );
+        }
+        else {
+            mappingTarget.setRole( null );
+        }
+        mappingTarget.setAddress( userDto.getAddress() );
     }
 }

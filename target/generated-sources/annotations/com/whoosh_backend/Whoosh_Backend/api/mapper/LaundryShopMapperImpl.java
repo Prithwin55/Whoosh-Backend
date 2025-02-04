@@ -16,8 +16,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-01T22:58:19+0530",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
+    date = "2025-02-04T12:14:08+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class LaundryShopMapperImpl implements LaundryShopMapper {
 
@@ -75,6 +75,44 @@ public class LaundryShopMapperImpl implements LaundryShopMapper {
         laundryShopBasicDto.setOwner( userToUserDto( laundryShop.getOwner() ) );
 
         return laundryShopBasicDto;
+    }
+
+    @Override
+    public void updateEntityFromDto(LaundryShopDto laundryShopDto, LaundryShop laundryShop) {
+        if ( laundryShopDto == null ) {
+            return;
+        }
+
+        laundryShop.setId( laundryShopDto.getId() );
+        laundryShop.setShopName( laundryShopDto.getShopName() );
+        laundryShop.setLocation( laundryShopDto.getLocation() );
+        laundryShop.setAddress( laundryShopDto.getAddress() );
+        laundryShop.setStatus( laundryShopDto.getStatus() );
+        if ( laundryShopDto.getOwner() != null ) {
+            if ( laundryShop.getOwner() == null ) {
+                laundryShop.setOwner( new User() );
+            }
+            userDtoToUser1( laundryShopDto.getOwner(), laundryShop.getOwner() );
+        }
+        else {
+            laundryShop.setOwner( null );
+        }
+        if ( laundryShop.getOrders() != null ) {
+            List<Order> list = orderDtoListToOrderList( laundryShopDto.getOrders() );
+            if ( list != null ) {
+                laundryShop.getOrders().clear();
+                laundryShop.getOrders().addAll( list );
+            }
+            else {
+                laundryShop.setOrders( null );
+            }
+        }
+        else {
+            List<Order> list = orderDtoListToOrderList( laundryShopDto.getOrders() );
+            if ( list != null ) {
+                laundryShop.setOrders( list );
+            }
+        }
     }
 
     protected UserDto userToUserDto(User user) {
@@ -235,5 +273,24 @@ public class LaundryShopMapperImpl implements LaundryShopMapper {
         }
 
         return list1;
+    }
+
+    protected void userDtoToUser1(UserDto userDto, User mappingTarget) {
+        if ( userDto == null ) {
+            return;
+        }
+
+        mappingTarget.setId( userDto.getId() );
+        mappingTarget.setUsername( userDto.getUsername() );
+        mappingTarget.setPassword( userDto.getPassword() );
+        mappingTarget.setEmail( userDto.getEmail() );
+        mappingTarget.setPhoneNumber( userDto.getPhoneNumber() );
+        if ( userDto.getRole() != null ) {
+            mappingTarget.setRole( Enum.valueOf( Role.class, userDto.getRole() ) );
+        }
+        else {
+            mappingTarget.setRole( null );
+        }
+        mappingTarget.setAddress( userDto.getAddress() );
     }
 }
