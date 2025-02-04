@@ -1,6 +1,7 @@
 package com.whoosh_backend.Whoosh_Backend.api.controller;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopDto;
+import com.whoosh_backend.Whoosh_Backend.api.response.LaundryShopResponse;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.service.LaundryShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class LaundryShopController {
     private LaundryShopService laundryShopService;
 
     @GetMapping
-    public List<LaundryShopDto> getAllLaundryShops() {
+    public List<LaundryShopResponse> getAllLaundryShops() {
         return laundryShopService.getAllLaundryShops();
     }
 

@@ -5,6 +5,7 @@ import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.orderitem.OrderItemDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
+import com.whoosh_backend.Whoosh_Backend.api.response.LaundryShopResponse;
 import com.whoosh_backend.Whoosh_Backend.data.entity.laundryshop.LaundryShop;
 import com.whoosh_backend.Whoosh_Backend.data.entity.order.Order;
 import com.whoosh_backend.Whoosh_Backend.data.entity.orderItem.OrderItem;
@@ -16,7 +17,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-04T12:14:08+0530",
+    date = "2025-02-04T14:29:36+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class LaundryShopMapperImpl implements LaundryShopMapper {
@@ -113,6 +114,25 @@ public class LaundryShopMapperImpl implements LaundryShopMapper {
                 laundryShop.setOrders( list );
             }
         }
+    }
+
+    @Override
+    public LaundryShopResponse toResponse(LaundryShop laundryShop) {
+        if ( laundryShop == null ) {
+            return null;
+        }
+
+        LaundryShopResponse laundryShopResponse = new LaundryShopResponse();
+
+        laundryShopResponse.setOrderIds( mapOrderIds( laundryShop.getOrders() ) );
+        laundryShopResponse.setId( laundryShop.getId() );
+        laundryShopResponse.setShopName( laundryShop.getShopName() );
+        laundryShopResponse.setLocation( laundryShop.getLocation() );
+        laundryShopResponse.setAddress( laundryShop.getAddress() );
+        laundryShopResponse.setStatus( laundryShop.getStatus() );
+        laundryShopResponse.setOwner( userToUserDto( laundryShop.getOwner() ) );
+
+        return laundryShopResponse;
     }
 
     protected UserDto userToUserDto(User user) {

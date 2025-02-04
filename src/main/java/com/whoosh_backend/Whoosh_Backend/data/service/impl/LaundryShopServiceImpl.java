@@ -2,6 +2,7 @@ package com.whoosh_backend.Whoosh_Backend.data.service.impl;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopDto;
 import com.whoosh_backend.Whoosh_Backend.api.mapper.LaundryShopMapper;
+import com.whoosh_backend.Whoosh_Backend.api.response.LaundryShopResponse;
 import com.whoosh_backend.Whoosh_Backend.data.entity.laundryshop.LaundryShop;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.repository.LaundryShopRepository;
@@ -21,9 +22,9 @@ public class LaundryShopServiceImpl implements LaundryShopService {
     private LaundryShopRepository laundryShopRepository;
 
     @Override
-    public List<LaundryShopDto> getAllLaundryShops() {
+    public List<LaundryShopResponse> getAllLaundryShops() {
         return laundryShopRepository.findAll().stream()
-                .map(LaundryShopMapper.INSTANCE::toDto)
+                .map(LaundryShopMapper.INSTANCE::toResponse)
                 .collect(Collectors.toList());
     }
 
