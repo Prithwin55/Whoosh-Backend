@@ -29,26 +29,26 @@ public class LaundryShopServiceImpl implements LaundryShopService {
     }
 
     @Override
-    public LaundryShopDto getLaundryShopById(Long id) throws ResourceNotFoundException {
+    public LaundryShopResponse getLaundryShopById(Long id) throws ResourceNotFoundException {
         return laundryShopRepository.findById(id)
-                .map(LaundryShopMapper.INSTANCE::toDto)
+                .map(LaundryShopMapper.INSTANCE::toResponse)
                 .orElseThrow(() -> new ResourceNotFoundException("LaundryShop not found"));
     }
 
     @Override
-    public LaundryShopDto createLaundryShop(LaundryShopDto laundryShopDto) {
+    public LaundryShopResponse createLaundryShop(LaundryShopDto laundryShopDto) {
         LaundryShop laundryShop = LaundryShopMapper.INSTANCE.toEntity(laundryShopDto);
         laundryShop = laundryShopRepository.save(laundryShop);
-        return LaundryShopMapper.INSTANCE.toDto(laundryShop);
+        return LaundryShopMapper.INSTANCE.toResponse(laundryShop);
     }
 
     @Override
-    public LaundryShopDto updateLaundryShop(Long id, LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
+    public LaundryShopResponse updateLaundryShop(Long id, LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
         LaundryShop existingLaundryShop = laundryShopRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("LaundryShop not found"));
-        //LaundryShopMapper.INSTANCE.updateEntityFromDto(laundryShopDto, existingLaundryShop);
+        LaundryShopMapper.INSTANCE.updateEntityFromDto(laundryShopDto, existingLaundryShop);
         existingLaundryShop = laundryShopRepository.save(existingLaundryShop);
-        return LaundryShopMapper.INSTANCE.toDto(existingLaundryShop);
+        return LaundryShopMapper.INSTANCE.toResponse(existingLaundryShop);
     }
 
     @Override

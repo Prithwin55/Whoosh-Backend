@@ -23,17 +23,17 @@ public class LaundryShopController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LaundryShopDto> getLaundryShopById(@PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<LaundryShopResponse> getLaundryShopById(@PathVariable Long id) throws ResourceNotFoundException {
         return ResponseEntity.ok(laundryShopService.getLaundryShopById(id));
     }
 
     @PostMapping
-    public ResponseEntity<LaundryShopDto> createLaundryShop(@RequestBody LaundryShopDto laundryShopDto) {
+    public ResponseEntity<LaundryShopResponse> createLaundryShop(@RequestBody LaundryShopDto laundryShopDto) {
         return ResponseEntity.ok(laundryShopService.createLaundryShop(laundryShopDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LaundryShopDto> updateLaundryShop(@PathVariable Long id, @RequestBody LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
+    public ResponseEntity<LaundryShopResponse> updateLaundryShop(@PathVariable Long id, @RequestBody LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
         return ResponseEntity.ok(laundryShopService.updateLaundryShop(id, laundryShopDto));
     }
 

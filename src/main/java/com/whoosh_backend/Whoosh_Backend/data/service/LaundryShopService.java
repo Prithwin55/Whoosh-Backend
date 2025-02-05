@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface LaundryShopService {
     List<LaundryShopResponse> getAllLaundryShops();
-    LaundryShopDto getLaundryShopById(Long id) throws ResourceNotFoundException;
-    LaundryShopDto createLaundryShop(LaundryShopDto laundryShopDto);
-    LaundryShopDto updateLaundryShop(Long id, LaundryShopDto laundryShopDto) throws ResourceNotFoundException;
+    LaundryShopResponse getLaundryShopById(Long id) throws ResourceNotFoundException;
+    LaundryShopResponse createLaundryShop(LaundryShopDto laundryShopDto);
+    LaundryShopResponse updateLaundryShop(Long id, LaundryShopDto laundryShopDto) throws ResourceNotFoundException;
     void deleteLaundryShop(Long id);
 }
