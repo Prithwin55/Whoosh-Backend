@@ -1,6 +1,7 @@
 package com.whoosh_backend.Whoosh_Backend.api.controller;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.delivery.DeliveryDto;
+import com.whoosh_backend.Whoosh_Backend.api.response.DeliveryResponse;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class DeliveryController {
     private DeliveryService deliveryService;
 
     @GetMapping
-    public List<DeliveryDto> getAllDeliveries() {
+    public List<DeliveryResponse> getAllDeliveries() {
         return deliveryService.getAllDeliveries();
     }
 
@@ -27,7 +28,7 @@ public class DeliveryController {
     }
 
     @PostMapping
-    public ResponseEntity<DeliveryDto> createDelivery(@RequestBody DeliveryDto deliveryDto) {
+    public ResponseEntity<DeliveryResponse> createDelivery(@RequestBody DeliveryDto deliveryDto) throws ResourceNotFoundException {
         return ResponseEntity.ok(deliveryService.createDelivery(deliveryDto));
     }
 

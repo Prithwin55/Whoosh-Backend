@@ -34,6 +34,6 @@ public class Delivery {
     private LocalDateTime dropTime;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus status; // ASSIGNED, IN_TRANSIT, DELIVERED
+    private DeliveryStatus status; // ASSIGNED, IN_TRANSIT, DELIVERED ,UNASSIGNED
 
 }

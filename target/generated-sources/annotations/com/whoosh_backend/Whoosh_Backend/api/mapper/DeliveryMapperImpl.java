@@ -4,6 +4,7 @@ import com.whoosh_backend.Whoosh_Backend.api.dto.delivery.DeliveryDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.orderitem.OrderItemDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
+import com.whoosh_backend.Whoosh_Backend.api.response.DeliveryResponse;
 import com.whoosh_backend.Whoosh_Backend.data.entity.delivery.Delivery;
 import com.whoosh_backend.Whoosh_Backend.data.entity.order.Order;
 import com.whoosh_backend.Whoosh_Backend.data.entity.orderItem.OrderItem;
@@ -15,7 +16,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-04T12:14:08+0530",
+    date = "2025-02-06T17:06:03+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class DeliveryMapperImpl implements DeliveryMapper {
@@ -30,10 +31,6 @@ public class DeliveryMapperImpl implements DeliveryMapper {
 
         deliveryDto.setId( delivery.getId() );
         deliveryDto.setOrder( orderToOrderDto( delivery.getOrder() ) );
-        deliveryDto.setDeliveryPerson( userToUserDto( delivery.getDeliveryPerson() ) );
-        deliveryDto.setPickupTime( delivery.getPickupTime() );
-        deliveryDto.setDropTime( delivery.getDropTime() );
-        deliveryDto.setStatus( delivery.getStatus() );
 
         return deliveryDto;
     }
@@ -48,12 +45,26 @@ public class DeliveryMapperImpl implements DeliveryMapper {
 
         delivery.setId( deliveryDto.getId() );
         delivery.setOrder( orderDtoToOrder( deliveryDto.getOrder() ) );
-        delivery.setDeliveryPerson( userDtoToUser( deliveryDto.getDeliveryPerson() ) );
-        delivery.setPickupTime( deliveryDto.getPickupTime() );
-        delivery.setDropTime( deliveryDto.getDropTime() );
-        delivery.setStatus( deliveryDto.getStatus() );
 
         return delivery;
+    }
+
+    @Override
+    public DeliveryResponse toResponse(Delivery delivery) {
+        if ( delivery == null ) {
+            return null;
+        }
+
+        DeliveryResponse deliveryResponse = new DeliveryResponse();
+
+        deliveryResponse.setId( delivery.getId() );
+        deliveryResponse.setOrder( orderToOrderDto( delivery.getOrder() ) );
+        deliveryResponse.setDeliveryPerson( userToUserDto( delivery.getDeliveryPerson() ) );
+        deliveryResponse.setPickupTime( delivery.getPickupTime() );
+        deliveryResponse.setDropTime( delivery.getDropTime() );
+        deliveryResponse.setStatus( delivery.getStatus() );
+
+        return deliveryResponse;
     }
 
     @Override
@@ -72,18 +83,6 @@ public class DeliveryMapperImpl implements DeliveryMapper {
         else {
             delivery.setOrder( null );
         }
-        if ( deliveryDto.getDeliveryPerson() != null ) {
-            if ( delivery.getDeliveryPerson() == null ) {
-                delivery.setDeliveryPerson( new User() );
-            }
-            userDtoToUser1( deliveryDto.getDeliveryPerson(), delivery.getDeliveryPerson() );
-        }
-        else {
-            delivery.setDeliveryPerson( null );
-        }
-        delivery.setPickupTime( deliveryDto.getPickupTime() );
-        delivery.setDropTime( deliveryDto.getDropTime() );
-        delivery.setStatus( deliveryDto.getStatus() );
     }
 
     protected UserDto userToUserDto(User user) {

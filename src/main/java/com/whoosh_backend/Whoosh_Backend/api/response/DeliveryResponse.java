@@ -1,8 +1,7 @@
-package com.whoosh_backend.Whoosh_Backend.api.dto.delivery;
+package com.whoosh_backend.Whoosh_Backend.api.response;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
-import com.whoosh_backend.Whoosh_Backend.data.entity.user.User;
 import com.whoosh_backend.Whoosh_Backend.data.enums.DeliveryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DeliveryDto {
+public class DeliveryResponse {
     private Long id;
     private OrderDto order;
+    private UserDto deliveryPerson;
+    private LocalDateTime pickupTime;
+    private LocalDateTime dropTime;
+    private DeliveryStatus status;
 }
