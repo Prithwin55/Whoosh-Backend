@@ -29,7 +29,7 @@ public class LaundryShop {
     @Enumerated(EnumType.STRING)
     private Status status; // ACTIVE, INACTIVE
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
 

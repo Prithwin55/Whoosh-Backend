@@ -38,8 +38,8 @@ public class LaundryShopController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLaundryShop(@PathVariable Long id) {
+    public ResponseEntity<String> deleteLaundryShop(@PathVariable Long id) {
         laundryShopService.deleteLaundryShop(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Deleted successfully");
     }
 }
