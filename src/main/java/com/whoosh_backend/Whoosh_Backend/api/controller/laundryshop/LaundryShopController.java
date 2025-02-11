@@ -1,6 +1,8 @@
 package com.whoosh_backend.Whoosh_Backend.api.controller.laundryshop;
 
 import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopDto;
+import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.UpdateServiceCategoryDto;
+import com.whoosh_backend.Whoosh_Backend.api.dto.servicecategory.ServiceCategoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.response.LaundryShopResponse;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
 import com.whoosh_backend.Whoosh_Backend.data.service.LaundryShopService;
@@ -28,10 +30,16 @@ public class LaundryShopController {
     }
 
     @PostMapping
-    public ResponseEntity<LaundryShopResponse> createLaundryShop(@RequestBody LaundryShopDto laundryShopDto) {
+    public ResponseEntity<LaundryShopResponse> createLaundryShop(@RequestBody LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
         return ResponseEntity.ok(laundryShopService.createLaundryShop(laundryShopDto));
     }
+    @PostMapping("/{laundryShopId}/service-categories")
+    public ResponseEntity<LaundryShopResponse> upsertServiceCategory(@PathVariable Long laundryShopId, @RequestBody ServiceCategoryDto serviceCategoryDto) throws ResourceNotFoundException {
 
+            LaundryShopResponse laundryShopResponse=laundryShopService.updateServiceCategory(laundryShopId, serviceCategoryDto);
+            return ResponseEntity.ok(laundryShopResponse);
+
+    }
     @PutMapping("/{id}")
     public ResponseEntity<LaundryShopResponse> updateLaundryShop(@PathVariable Long id, @RequestBody LaundryShopDto laundryShopDto) throws ResourceNotFoundException {
         return ResponseEntity.ok(laundryShopService.updateLaundryShop(id, laundryShopDto));

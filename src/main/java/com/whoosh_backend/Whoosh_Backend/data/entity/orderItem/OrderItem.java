@@ -1,6 +1,7 @@
 package com.whoosh_backend.Whoosh_Backend.data.entity.orderItem;
 
 import com.whoosh_backend.Whoosh_Backend.data.entity.order.Order;
+import com.whoosh_backend.Whoosh_Backend.data.entity.servicecategory.ServiceCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,10 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private ServiceCategory serviceCategory;
 
     private String itemType;
     private Integer quantity;

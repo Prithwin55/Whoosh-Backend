@@ -17,7 +17,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-04T14:29:36+0530",
+    date = "2025-02-09T14:39:37+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class LaundryShopMapperImpl implements LaundryShopMapper {
@@ -125,6 +125,7 @@ public class LaundryShopMapperImpl implements LaundryShopMapper {
         LaundryShopResponse laundryShopResponse = new LaundryShopResponse();
 
         laundryShopResponse.setOrderIds( mapOrderIds( laundryShop.getOrders() ) );
+        laundryShopResponse.setServiceCategories( mapServiceCategories( laundryShop.getServiceCategories() ) );
         laundryShopResponse.setId( laundryShop.getId() );
         laundryShopResponse.setShopName( laundryShop.getShopName() );
         laundryShopResponse.setLocation( laundryShop.getLocation() );

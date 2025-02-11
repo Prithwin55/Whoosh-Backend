@@ -1,7 +1,10 @@
 package com.whoosh_backend.Whoosh_Backend.api.response;
 
+import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.UpdateServiceCategoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
+import com.whoosh_backend.Whoosh_Backend.api.dto.servicecategory.ServiceCategoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
+import com.whoosh_backend.Whoosh_Backend.data.entity.servicecategory.ServiceCategory;
 import com.whoosh_backend.Whoosh_Backend.data.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +25,5 @@ public class LaundryShopResponse {
     private Status status;
     private UserDto owner;
     private List<Long> orderIds;
+    private List<ServiceCategoryDto> serviceCategories;
 }
