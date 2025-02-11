@@ -16,7 +16,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-09T10:41:44+0530",
+    date = "2025-02-11T14:33:03+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class DeliveryMapperImpl implements DeliveryMapper {
@@ -114,7 +114,6 @@ public class DeliveryMapperImpl implements DeliveryMapper {
 
         orderItemDto.setId( orderItem.getId() );
         orderItemDto.setOrder( orderToOrderDto( orderItem.getOrder() ) );
-        orderItemDto.setItemType( orderItem.getItemType() );
         orderItemDto.setQuantity( orderItem.getQuantity() );
         orderItemDto.setPricePerItem( orderItem.getPricePerItem() );
 
@@ -181,7 +180,6 @@ public class DeliveryMapperImpl implements DeliveryMapper {
 
         orderItem.setId( orderItemDto.getId() );
         orderItem.setOrder( orderDtoToOrder( orderItemDto.getOrder() ) );
-        orderItem.setItemType( orderItemDto.getItemType() );
         orderItem.setQuantity( orderItemDto.getQuantity() );
         orderItem.setPricePerItem( orderItemDto.getPricePerItem() );
 
