@@ -27,7 +27,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(OrderDto order) throws ResourceAlreadyExistException {
-        Order savedOrder = orderRepository.save(OrderMapper.INSTANCE.toEntity(order));
+        Order orderC=OrderMapper.INSTANCE.toEntity(order);
+        orderC.getOrderItems().forEach(orderItem -> orderItem.setOrder(orderC));
+        Order savedOrder = orderRepository.save(orderC);
+
         return OrderMapper.INSTANCE.toDto(savedOrder);
     }
 
@@ -55,9 +58,6 @@ public class OrderServiceImpl implements OrderService {
             LaundryShop shop = existingOrder.getShop();
             shop.setId(order.getShopId());
             existingOrder.setShop(shop);
-        }
-        if (order.getDeliveryPerson() != null) {
-            existingOrder.setDeliveryPerson(UserMapper.INSTANCE.toEntity(order.getDeliveryPerson()));
         }
         if (order.getStatus() != null) {
             existingOrder.setStatus(order.getStatus());

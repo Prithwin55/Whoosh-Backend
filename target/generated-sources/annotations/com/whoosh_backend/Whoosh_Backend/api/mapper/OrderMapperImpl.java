@@ -1,9 +1,11 @@
 package com.whoosh_backend.Whoosh_Backend.api.mapper;
 
+import com.whoosh_backend.Whoosh_Backend.api.dto.item.ItemDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderBasicDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.order.OrderDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.orderitem.OrderItemDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.user.UserDto;
+import com.whoosh_backend.Whoosh_Backend.data.entity.item.Item;
 import com.whoosh_backend.Whoosh_Backend.data.entity.laundryshop.LaundryShop;
 import com.whoosh_backend.Whoosh_Backend.data.entity.order.Order;
 import com.whoosh_backend.Whoosh_Backend.data.entity.orderItem.OrderItem;
@@ -15,7 +17,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-11T14:33:02+0530",
+    date = "2025-02-12T18:12:24+0530",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 public class OrderMapperImpl implements OrderMapper {
@@ -34,7 +36,6 @@ public class OrderMapperImpl implements OrderMapper {
         }
         orderDto.setId( order.getId() );
         orderDto.setCustomer( userToUserDto( order.getCustomer() ) );
-        orderDto.setDeliveryPerson( userToUserDto( order.getDeliveryPerson() ) );
         orderDto.setStatus( order.getStatus() );
         orderDto.setTotalPrice( order.getTotalPrice() );
         orderDto.setPaymentStatus( order.getPaymentStatus() );
@@ -54,7 +55,6 @@ public class OrderMapperImpl implements OrderMapper {
         order.setShop( orderDtoToLaundryShop( orderDto ) );
         order.setId( orderDto.getId() );
         order.setCustomer( userDtoToUser( orderDto.getCustomer() ) );
-        order.setDeliveryPerson( userDtoToUser( orderDto.getDeliveryPerson() ) );
         order.setStatus( orderDto.getStatus() );
         order.setTotalPrice( orderDto.getTotalPrice() );
         order.setPaymentStatus( orderDto.getPaymentStatus() );
@@ -74,7 +74,6 @@ public class OrderMapperImpl implements OrderMapper {
         orderBasicDto.setShopName( orderShopShopName( order ) );
         orderBasicDto.setId( order.getId() );
         orderBasicDto.setCustomer( userToUserDto( order.getCustomer() ) );
-        orderBasicDto.setDeliveryPerson( userToUserDto( order.getDeliveryPerson() ) );
         orderBasicDto.setStatus( order.getStatus() );
         orderBasicDto.setTotalPrice( order.getTotalPrice() );
         orderBasicDto.setPaymentStatus( order.getPaymentStatus() );
@@ -98,15 +97,6 @@ public class OrderMapperImpl implements OrderMapper {
         }
         else {
             order.setCustomer( null );
-        }
-        if ( orderDto.getDeliveryPerson() != null ) {
-            if ( order.getDeliveryPerson() == null ) {
-                order.setDeliveryPerson( new User() );
-            }
-            userDtoToUser1( orderDto.getDeliveryPerson(), order.getDeliveryPerson() );
-        }
-        else {
-            order.setDeliveryPerson( null );
         }
         order.setStatus( orderDto.getStatus() );
         order.setTotalPrice( orderDto.getTotalPrice() );
@@ -164,6 +154,20 @@ public class OrderMapperImpl implements OrderMapper {
         return userDto;
     }
 
+    protected ItemDto itemToItemDto(Item item) {
+        if ( item == null ) {
+            return null;
+        }
+
+        ItemDto itemDto = new ItemDto();
+
+        itemDto.setId( item.getId() );
+        itemDto.setPrice( item.getPrice() );
+        itemDto.setItemName( item.getItemName() );
+
+        return itemDto;
+    }
+
     protected OrderItemDto orderItemToOrderItemDto(OrderItem orderItem) {
         if ( orderItem == null ) {
             return null;
@@ -172,9 +176,9 @@ public class OrderMapperImpl implements OrderMapper {
         OrderItemDto orderItemDto = new OrderItemDto();
 
         orderItemDto.setId( orderItem.getId() );
-        orderItemDto.setOrder( toDto( orderItem.getOrder() ) );
+        orderItemDto.setItem( itemToItemDto( orderItem.getItem() ) );
         orderItemDto.setQuantity( orderItem.getQuantity() );
-        orderItemDto.setPricePerItem( orderItem.getPricePerItem() );
+        orderItemDto.setTotalPrice( orderItem.getTotalPrice() );
 
         return orderItemDto;
     }
@@ -224,6 +228,20 @@ public class OrderMapperImpl implements OrderMapper {
         return user;
     }
 
+    protected Item itemDtoToItem(ItemDto itemDto) {
+        if ( itemDto == null ) {
+            return null;
+        }
+
+        Item item = new Item();
+
+        item.setId( itemDto.getId() );
+        item.setPrice( itemDto.getPrice() );
+        item.setItemName( itemDto.getItemName() );
+
+        return item;
+    }
+
     protected OrderItem orderItemDtoToOrderItem(OrderItemDto orderItemDto) {
         if ( orderItemDto == null ) {
             return null;
@@ -232,9 +250,9 @@ public class OrderMapperImpl implements OrderMapper {
         OrderItem orderItem = new OrderItem();
 
         orderItem.setId( orderItemDto.getId() );
-        orderItem.setOrder( toEntity( orderItemDto.getOrder() ) );
+        orderItem.setItem( itemDtoToItem( orderItemDto.getItem() ) );
         orderItem.setQuantity( orderItemDto.getQuantity() );
-        orderItem.setPricePerItem( orderItemDto.getPricePerItem() );
+        orderItem.setTotalPrice( orderItemDto.getTotalPrice() );
 
         return orderItem;
     }

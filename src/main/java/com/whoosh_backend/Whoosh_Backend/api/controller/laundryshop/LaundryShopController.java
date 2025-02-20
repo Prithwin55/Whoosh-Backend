@@ -1,7 +1,9 @@
 package com.whoosh_backend.Whoosh_Backend.api.controller.laundryshop;
 
+import com.whoosh_backend.Whoosh_Backend.api.dto.item.ItemDto;
+import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopBasicDto;
+import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopCatagoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.LaundryShopDto;
-import com.whoosh_backend.Whoosh_Backend.api.dto.laundryshop.UpdateServiceCategoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.dto.servicecategory.ServiceCategoryDto;
 import com.whoosh_backend.Whoosh_Backend.api.response.LaundryShopResponse;
 import com.whoosh_backend.Whoosh_Backend.data.exception.ResourceNotFoundException;
@@ -49,5 +51,14 @@ public class LaundryShopController {
     public ResponseEntity<String> deleteLaundryShop(@PathVariable Long id) {
         laundryShopService.deleteLaundryShop(id);
         return ResponseEntity.ok("Deleted successfully");
+    }
+
+    @GetMapping("/getAllByServiceCatagory")
+    public ResponseEntity<List<LaundryShopBasicDto>> getAllLaundryShopsByServiceCategory(@RequestBody LaundryShopCatagoryDto laundryShopCatagoryDto) {
+        return ResponseEntity.ok(laundryShopService.getAllLaundryShopByServiceType(laundryShopCatagoryDto));
+    }
+    @GetMapping("/getItemsByShopIdandServiceType/{shopId}")
+    public ResponseEntity<List<ItemDto>> getItemsByShopIdandServiceType(@PathVariable Long shopId, @RequestBody LaundryShopCatagoryDto laundryShopCatagoryDto) throws ResourceNotFoundException {
+        return ResponseEntity.ok(laundryShopService.getItemsByShopIdandServiceType(shopId, laundryShopCatagoryDto));
     }
 }

@@ -27,6 +27,7 @@ public interface LaundryShopMapper {
     LaundryShopBasicDto toBasicDto(LaundryShop laundryShop);
 
 
+
     void updateEntityFromDto(LaundryShopDto laundryShopDto, @MappingTarget LaundryShop laundryShop);
 
 

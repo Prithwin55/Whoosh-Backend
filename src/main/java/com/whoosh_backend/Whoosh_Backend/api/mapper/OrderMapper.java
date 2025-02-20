@@ -13,10 +13,13 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface OrderMapper {
     OrderMapper INSTANCE= Mappers.getMapper(OrderMapper.class);
+
     @Mapping(source = "shop.id", target = "shopId")
     OrderDto toDto(Order order);
+
     @Mapping(source = "shopId", target = "shop.id")
     Order toEntity(OrderDto orderDto);
+
     @Mapping(source = "shop.shopName", target = "shopName")
     OrderBasicDto toBasicDto(Order order);
 

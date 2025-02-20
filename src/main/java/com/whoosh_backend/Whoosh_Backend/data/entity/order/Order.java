@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -23,17 +24,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private User customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
     private LaundryShop shop;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_person_id", referencedColumnName = "id", nullable = true)
-    private User deliveryPerson;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // PENDING, PICKED_UP, IN_PROCESS, COMPLETED, DELIVERED

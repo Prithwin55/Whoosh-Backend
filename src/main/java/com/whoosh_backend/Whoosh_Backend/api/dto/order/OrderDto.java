@@ -21,7 +21,6 @@ public class OrderDto {
     private Long id;
     private UserDto customer;
     private long shopId;
-    private UserDto deliveryPerson;
     private OrderStatus status;
     private Double totalPrice;
     private PaymentStatus paymentStatus;

@@ -33,12 +33,11 @@ public class OrderItem {
 //    private ServiceCategory serviceCategory;
 
 
-    private ServiceType serviceType;
 
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
     private Integer quantity;
-    private Double pricePerItem;
+    private Double totalPrice;
 
 }
